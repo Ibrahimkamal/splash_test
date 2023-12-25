@@ -1,9 +1,10 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { EventHubService } from './event-hub/event-hub.service';
+import { EventHubProducerService } from './event-hub-producer/event-hub-producer.service';
+import { EventHubConsumerService } from './event-hub-consumer/event-hub-consumer.service';
 
 @Controller('events')
 export class EventsController {
-  constructor(private readonly eventHubService: EventHubService) {}
+  constructor(private readonly eventHubService: EventHubProducerService) {}
 
   @Post()
   async sendEvent(@Body() eventData: any) {

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { EventHubProducerClient } from '@azure/event-hubs';
 
 @Injectable()
-export class EventHubService {
+export class EventHubProducerService {
   private producerClient: EventHubProducerClient;
 
   constructor() {
