@@ -1,20 +1,22 @@
 import { Module } from '@nestjs/common';
-import { EventsController } from './event-hub-producer/event-hub-producer.controller';
-import { EventHubProducerService } from './event-hub-producer/event-hub-producer.service';
-import { EventHubConsumerService } from './event-hub-consumer/event-hub-consumer.service';
-import { CartQueueConsumerService } from './cart-queue-consumer/cart-queue-consumer.service';
-import { OrderQueueConsumerService } from './order-queue-consumer/order-queue-consumer.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { OrderQueueConsumerModule } from './order-queue-consumer/order-queue-consumer.module';
+import { CartQueueConsumerModule } from './cart-queue-consumer/cart-queue-consumer.module';
+import { EventHubConsumerModule } from './event-hub-consumer/event-hub-consumer.module';
+import { EventHubProducerModule } from './event-hub-producer/event-hub-producer.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(),
-],
-  controllers: [EventsController],
-  providers: [EventHubProducerService, EventHubConsumerService, CartQueueConsumerService, OrderQueueConsumerService],
+  imports: [
+    ConfigModule.forRoot(),
+    // MongooseModule.forRoot(`mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@localhost:27017/${process.env.DB_NAME}`),
+    MongooseModule.forRoot(`mongodb://admin:admin@localhost:27027/eshop_db`),
+    OrderQueueConsumerModule,
+    CartQueueConsumerModule,
+    EventHubConsumerModule,
+    EventHubProducerModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule { }
-// MongooseModule.forRoot('mongodb://rootuser:rootpass@mongodb:27017/mydatabase', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// })

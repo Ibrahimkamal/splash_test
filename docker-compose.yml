@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rootuser
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: eshop_db
+    ports:
+      - 27017:27017
+  eshop_app:
+    build: ./eshop_app
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+
+
+
