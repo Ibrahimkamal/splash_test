@@ -8,8 +8,8 @@ export class EventHubConsumerService implements OnModuleInit {
     private consumerClient: EventHubConsumerClient;
 
     constructor(private configService: ConfigService) {
-        const connectionString = "Endpoint=sb://eshop-eventhub-ns.servicebus.windows.net/;SharedAccessKeyName=consumer;SharedAccessKey=WuZZT0rRdx2I8SkEHWuAPrxLDnCfwZpD4+AEhGEjVkY=;EntityPath=eshop-eventhub";
-        const eventHubName = "eshop-eventhub"
+        const connectionString = configService.get<string>('EVENT_HUB_CONNECTION_STRING_CONSUMER');
+        const eventHubName = configService.get<string>('EVENT_HUB_NAME');
         const consumerGroup = '$Default';
 
         this.consumerClient = new EventHubConsumerClient(consumerGroup, connectionString, eventHubName);
@@ -48,8 +48,8 @@ export class EventHubConsumerService implements OnModuleInit {
             const serviceBusMessage = {
                 body: JSON.stringify(message),
                 contentType: "application/json"
-              };            
-              await sender.sendMessages(serviceBusMessage);
+            };
+            await sender.sendMessages(serviceBusMessage);
             console.log("Message sent successfully!");
         } catch (error) {
             console.error("An error occurred while sending the message:", error);

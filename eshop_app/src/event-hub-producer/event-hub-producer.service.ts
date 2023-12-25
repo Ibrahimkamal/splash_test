@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { EventHubProducerClient } from '@azure/event-hubs';
-
+import { ConfigService } from "@nestjs/config";
 @Injectable()
 export class EventHubProducerService {
   private producerClient: EventHubProducerClient;
 
-  constructor() {
-    const connectionString = 'Endpoint=sb://eshop-eventhub-ns.servicebus.windows.net/;SharedAccessKeyName=producer;SharedAccessKey=qln8YKLwz/McrPF2n41FZCpHyHSa3q/uc+AEhILN3Rg=;EntityPath=eshop-eventhub';
-    const eventHubName = 'eshop-eventhub';
+  constructor(configService: ConfigService) {
+    const connectionString = configService.get<string>('EVENT_HUB_CONNECTION_STRING_PRODUCER');
+    const eventHubName = configService.get<string>('EVENT_HUB_NAME');
 
     this.producerClient = new EventHubProducerClient(connectionString, eventHubName);
   }

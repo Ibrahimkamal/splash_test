@@ -1,0 +1,28 @@
+# Project Name
+
+This project is a small ecommerce application that supports two services: orders and carts.
+
+## Getting Started
+
+To start with this project, you need to build the cloud infrastructure by following these steps:
+
+1. Authenticate your machine with Azure.
+2. Run `terraform init` to initialize Terraform.
+3. Run `terraform plan` to review the infrastructure changes.
+4. Run `terraform apply` to apply the changes and create the cloud infrastructure.
+
+Once the cloud infrastructure is available, you can obtain a connection string for sending and receiving events to the eventHub created. Follow these steps:
+
+1. Go to the "sharedaccesspolicy" tab.
+2. Create one claim for sending and another one for receiving.
+3. Obtain the connection string.
+
+## Configuration
+
+In the project, you will find a `.env` file. Follow the example provided to add the necessary connection strings and other values like the database name and password. These values are already defined in the docker-compose file.
+
+You will also need to do the same with the connection string in the service bus.
+
+## Running the Project
+
+Once the `.env` file is properly configured, you can run the following command to create the database and start the Nest project:

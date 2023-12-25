@@ -25,10 +25,8 @@ export class OrderQueueConsumerService {
         this.receiver.subscribe({
             processMessage: async (message: any) => {
                 console.log(`Received message: ${message.body}`);
-                console.log(`Received message: ${message.body}`);
                 try {
                     await this.createOrder(JSON.parse(message.body).details);
-                    // Acknowledge the message
                     await message.complete();
                 } catch (error) {
                     console.error(`Error while processing order: ${error}`);
@@ -41,7 +39,6 @@ export class OrderQueueConsumerService {
             const newOrder = new this.orderModel(order);
             const savedOrder = await newOrder.save();
 
-            // Verify that the order has been saved
             const fetchedOrder = await this.findOrderById(savedOrder.id);
             console.log("Fetched order:", fetchedOrder);
 
