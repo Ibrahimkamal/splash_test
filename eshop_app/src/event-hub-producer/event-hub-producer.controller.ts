@@ -1,6 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { EventHubProducerService } from './event-hub-producer/event-hub-producer.service';
-import { EventHubConsumerService } from './event-hub-consumer/event-hub-consumer.service';
+import { EventHubProducerService } from './event-hub-producer.service';
 
 @Controller('events')
 export class EventsController {
